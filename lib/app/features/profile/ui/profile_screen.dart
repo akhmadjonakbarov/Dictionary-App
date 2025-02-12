@@ -6,7 +6,6 @@ import '../../../core/storage/shared_prefs_helper.dart';
 import '../../../shared/logics/tag_controller.dart';
 import '../logic/profile_controller.dart';
 import '../../../shared/widgets/buttons.dart';
-import '../../../core/data/constants_data.dart';
 import '../../../shared/widgets/custom_scaffold.dart';
 import '../../../shared/widgets/headers.dart';
 import '../../../shared/widgets/image_circle.dart';
