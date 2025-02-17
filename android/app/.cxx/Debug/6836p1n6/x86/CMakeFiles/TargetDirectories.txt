@@ -1,0 +1,2 @@
+/media/akhmad/DATA/Projects/flutterApps/dictionary_app/android/app/.cxx/Debug/6836p1n6/x86/CMakeFiles/edit_cache.dir
+/media/akhmad/DATA/Projects/flutterApps/dictionary_app/android/app/.cxx/Debug/6836p1n6/x86/CMakeFiles/rebuild_cache.dir
