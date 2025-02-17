@@ -25,6 +25,7 @@ class AboutScreen extends StatelessWidget {
         'body': Uri.encodeComponent('Hello World'),
       },
     );
+    dev.log(uri.toString());
   }
 
   @override
