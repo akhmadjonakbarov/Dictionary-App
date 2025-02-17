@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-
+import 'dart:developer' as dev;
 import '../../shared/widgets/custom_scaffold.dart';
 import '../../shared/widgets/headers.dart';
 import '../../shared/widgets/responsive_widget.dart';
 import '../../ui/app_colors.dart';
 import '../../ui/app_icons.dart';
-import '../home/ui/widgets/section_button.dart';
+
+import '../start/ui/widgets/section_button.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
 
   Future<void> _launchUrl({String url = 'https://www.google.com/'}) async {
     Uri uri = Uri.parse(url);
+    dev.log(uri.toString());
   }
 
   Future<void> sendMail(String mail) async {

@@ -15,6 +15,7 @@ class AppColors {
   static const zooBack = Color(0xFFC18C6C);
   static const grey = Color(0xFF515662);
   static const textGrey = Color(0xFF5B5B5B);
+  static const borderGreyColor = Color(0xFFF5F5F5);
 }
 
 class GradientColors {

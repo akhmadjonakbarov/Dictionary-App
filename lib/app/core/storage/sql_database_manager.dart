@@ -1,9 +1,10 @@
 import 'dart:developer';
 
-import '../../features/entry/models/entry.dart';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+import '../../features/home/models/entry.dart';
 import '../../shared/models/tag.dart';
 
 class SQLDatabaseManager {

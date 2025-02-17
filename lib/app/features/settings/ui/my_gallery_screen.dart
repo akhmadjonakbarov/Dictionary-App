@@ -12,7 +12,8 @@ import '../../../shared/widgets/buttons.dart';
 import '../../../shared/widgets/custom_scaffold.dart';
 import '../../../shared/widgets/headers.dart';
 import '../../../shared/widgets/responsive_widget.dart';
-import '../../entry/logic/entry_controller.dart';
+import '../../home/logic/entry_controller.dart';
+
 
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({super.key});

@@ -1,10 +1,13 @@
+import 'package:dictionary_app/app/features/start/ui/start_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'features/entry/ui/entry_detail_screen.dart';
 import 'features/exports.dart';
 
 import 'core/screens.dart';
-import 'features/home/logic/home_bindings.dart';
+import 'features/home/ui/entry_detail_screen.dart';
+import 'features/home/ui/home_screen.dart';
+import 'features/home/ui/new_entry_screen.dart';
+import 'features/start/logic/home_bindings.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -21,13 +24,13 @@ class MyApp extends StatelessWidget {
       initialRoute: Screens.home,
       getPages: [
         GetPage(
-          name: Screens.home,
-          page: () => HomeScreen(),
-          binding: HomeBindings(),
+          name: Screens.start,
+          page: () => StartScreen(),
+          binding: StartBindings(),
         ),
         GetPage(
-          name: Screens.myEntries,
-          page: () => MyEntriesScreen(),
+          name: Screens.home,
+          page: () => HomeScreen(),
         ),
         GetPage(
           name: Screens.newEntry,
