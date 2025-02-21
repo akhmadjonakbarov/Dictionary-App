@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../shared/widgets/buttons.dart';
 import '../../../shared/widgets/custom_scaffold.dart';
 import '../../../shared/widgets/headers.dart';

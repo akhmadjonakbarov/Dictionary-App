@@ -4,7 +4,7 @@ class Screens {
   static const String myEntries = '/myentries';
   static const String newEntry = '/newentry';
   static const String settings = '/settings';
-  static const String profile = '/profile';
+  static const String practice = '/practice';
   static const String about = '/about';
 
   static const String entryDetail = '/entryDetail';

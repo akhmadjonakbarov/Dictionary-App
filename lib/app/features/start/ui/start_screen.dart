@@ -283,6 +283,7 @@ class LevelItem extends StatelessWidget {
             border: Border.all(
               color: AppColors.borderColor,
             ),
+
           ),
           child: InkWell(
             borderRadius: BorderRadius.circular(height),
