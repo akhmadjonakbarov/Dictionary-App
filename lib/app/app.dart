@@ -1,12 +1,14 @@
 import 'package:dictionary_app/app/features/start/ui/start_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'features/exports.dart';
 
 import 'core/screens.dart';
+import 'features/about/about_screen.dart';
 import 'features/home/ui/entry_detail_screen.dart';
 import 'features/home/ui/home_screen.dart';
 import 'features/home/ui/new_entry_screen.dart';
+import 'features/practice/ui/practice_screen.dart';
+import 'features/settings/ui/setting_screen.dart';
 import 'features/start/logic/home_bindings.dart';
 
 class MyApp extends StatelessWidget {
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      initialRoute: Screens.home,
+      initialRoute: Screens.settings,
       getPages: [
         GetPage(
           name: Screens.start,
@@ -49,8 +51,8 @@ class MyApp extends StatelessWidget {
           page: () => AboutScreen(),
         ),
         GetPage(
-          name: Screens.profile,
-          page: () => ProfileScreen(),
+          name: Screens.practice,
+          page: () => PracticeScreen(),
         ),
       ],
     );
