@@ -5,6 +5,7 @@ class AppColors {
   static const primary = Color(0xFFF6F9FA);
   static const secondary = Color(0xFFFFFFFF);
   static const third = Color(0xFF1753ED);
+  static const whiteSmoke = Color(0xFFDCE5FC);
   static const white = Colors.white;
   static const dividerColor = Color(0xFF2C2E42);
   static const borderColor = Color(0xFFEDEDED);
