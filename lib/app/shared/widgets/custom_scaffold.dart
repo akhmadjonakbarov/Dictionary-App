@@ -8,7 +8,7 @@ class CustomScaffold extends StatelessWidget {
     required this.body,
     this.padding,
     this.appBar,
-    this.backgroundColor = AppColors.background,
+    this.backgroundColor = AppColors.primary,
   });
 
   final Color? backgroundColor;

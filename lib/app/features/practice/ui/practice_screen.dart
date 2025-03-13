@@ -1,7 +1,8 @@
-import 'package:dictionary_app/app/ui/app_icons.dart';
+import 'package:dictionary_app/app/shared/logics/user_controller.dart';
 import 'package:dictionary_app/app/utils/radius_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../shared/widgets/custom_scaffold.dart';
@@ -22,6 +23,8 @@ class PracticeScreen extends StatelessWidget {
     'Level 3',
     'Level 4',
   ];
+
+  final UserController userController = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {
@@ -91,9 +94,16 @@ class PracticeScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              for (var level in levels)
+                              // for (var level in levels)
+
+                              for (int i = 0; i < levels.length; i++)
                                 ProgressLevel(
-                                    width: width, height: height, level: level)
+                                  lvl: userController.user.value.lvl,
+                                  index: i,
+                                  width: width,
+                                  height: height,
+                                  level: levels[i],
+                                )
                             ],
                           ),
                         ],

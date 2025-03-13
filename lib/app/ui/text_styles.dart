@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class GilroyTextStyle {
   static TextStyle style({
@@ -12,6 +13,30 @@ class GilroyTextStyle {
       color: color,
       fontWeight: weight,
       fontSize: size,
+    );
+  }
+}
+
+class QuickSandTextStyle {
+  static TextStyle weightW500({
+    Color? color,
+    double? size,
+  }) {
+    return GoogleFonts.quicksand(
+      color: color,
+      fontSize: size,
+      fontWeight: FontWeight.w500,
+    );
+  }
+
+  static TextStyle weightW600({
+    Color? color,
+    double? size,
+  }) {
+    return GoogleFonts.quicksand(
+      color: color,
+      fontSize: size,
+      fontWeight: FontWeight.w500,
     );
   }
 }

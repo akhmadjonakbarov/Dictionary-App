@@ -1,14 +1,11 @@
-import 'dart:developer';
-
-
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-import '../../features/home/models/entry.dart';
-import '../../shared/models/tag.dart';
+import '../../shared/models/word.dart';
+import '../data/constants_data.dart';
 
 class SQLDatabaseManager {
-  static const String _tableName = 'entries';
+  static const String _tableName = 'words';
 
   // Singleton instance
   static final SQLDatabaseManager _instance = SQLDatabaseManager._internal();
@@ -38,118 +35,64 @@ class SQLDatabaseManager {
       version: 1,
       onCreate: (db, version) async {
         await db.execute('''
-          CREATE TABLE $_tableName (
+           CREATE TABLE levels (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT,
-            description TEXT,
-            tag TEXT,
-            createdDate TEXT
-          )
-        ''');
+            name TEXT
+           )        
+          ''');
+        for (var level in levels) {
+          await db.insert('levels', {'name': level});
+        }
         await db.execute('''
-         CREATE TABLE images (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            entry_id INTEGER,
-            image TEXT,
-            created TEXT,
-             FOREIGN KEY (entry_id) REFERENCES $_tableName(id) ON DELETE CASCADE
-          )
-        ''');
+            CREATE TABLE $_tableName (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              category TEXT,
+              levelId INTEGER,
+              key TEXT,
+              value TEXT,
+              createdDate TEXT,
+             FOREIGN KEY (levelId) REFERENCES levels(id) ON DELETE CASCADE
+            )
+          ''');
         await db.execute('''
-        
-           CREATE TABLE tags (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-          value TEXT
-          )
-        
+        CREATE TABLE learnt_words (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              wordId INTEGER,
+            )
         ''');
       },
     );
   }
 
-  Future<void> insertTag(Tag tag) async {
+  Future<int> insertWord(Word word) async {
     final db = await database;
-    await db.insert(
-      'tags',
-      tag.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    return await db.insert(_tableName, word.toMap());
   }
 
-  Future<List<Map<String, dynamic>>> getTags() async {
+  Future<int> insertWordId(int id) async {
     final db = await database;
-    return await db.rawQuery('''
-    SELECT e.id, e.value  
-    FROM tags e 
-  ''');
+    return await db.insert('learnt_words', {'wordId': id});
   }
 
-  Future<void> insertEntry(Entry entry) async {
+  Future<List<int>> getLearnedWordIds() async {
     final db = await database;
-
-    int entryId = await db.insert(
-      'entries',
-      entry.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-
-    log("Inserted Entry ID: $entryId");
-
-    if (entry.imagePaths.isNotEmpty) {
-      await insertImage(entryId, entry.imagePaths);
-    } else {
-      log("No images to insert for entry ID: $entryId");
-    }
+    List<int> ids = [];
+    return (await db.query('learnt_words'))
+        .map(
+          (e) => int.parse(e['wordId'].toString()),
+        )
+        .toList();
   }
 
-  Future<void> insertImage(int entryId, List<String> imagePaths) async {
+  Future<List<Word>> getAllWords() async {
     final db = await database;
-
-    for (String element in imagePaths) {
-      log("FROM INSERT IMAGES: $element"); // Debug log
-      await db.insert(
-        'images',
-        {
-          'entry_id': entryId,
-          'image': element,
-          'created': DateTime.now().toIso8601String(),
-        },
-        conflictAlgorithm: ConflictAlgorithm.replace,
-      );
-    }
+    return (await db.query(_tableName))
+        .map((row) => Word.fromMap(row))
+        .toList();
   }
 
-  Future<void> deleteEntry(int id) async {
+  Future<void> deleteWord(int id) async {
     final db = await database;
-    await db.execute('DELETE FROM $_tableName WHERE id =?', [id]);
-    await db.execute('DELETE FROM images WHERE entry_id =?', [id]);
-  }
-
-  Future<List<Map<String, dynamic>>> getEntries() async {
-    final db = await database;
-    return await db.rawQuery('''
-    SELECT e.id, e.title, e.description, e.tag, e.createdDate, i.image 
-    FROM $_tableName e 
-    LEFT JOIN images i ON e.id = i.entry_id
-  ''');
-  }
-
-  Future<void> deleteEntries() async {
-    final db = await database;
-    await db.execute('DELETE FROM $_tableName');
-    await db.execute('DELETE FROM images');
-    await reset(_tableName);
-    await reset('images');
-  }
-
-  Future<void> deleteTags() async {
-    final db = await database;
-    await db.execute('DELETE FROM tags');
-    await reset('tags');
-  }
-
-  Future<void> reset(String tableName) async {
-    final db = await database;
-    await db.execute('DELETE FROM SQLITE_SEQUENCE WHERE name = ?', [tableName]);
+    await db.delete(_tableName, where: 'id = ?', whereArgs: [id]);
   }
 }

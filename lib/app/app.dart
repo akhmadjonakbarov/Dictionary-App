@@ -1,15 +1,17 @@
+import 'package:dictionary_app/app/features/grammar/grammar_screen.dart';
+import 'package:dictionary_app/app/features/practice/ui/practice_detail.dart';
 import 'package:dictionary_app/app/features/start/ui/start_screen.dart';
+import 'package:dictionary_app/app/features/vocabulary/vocabulary_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'core/screens.dart';
 import 'features/about/about_screen.dart';
-import 'features/home/ui/entry_detail_screen.dart';
+
 import 'features/home/ui/home_screen.dart';
-import 'features/home/ui/new_entry_screen.dart';
 import 'features/practice/ui/practice_screen.dart';
 import 'features/settings/ui/setting_screen.dart';
-import 'features/start/logic/home_bindings.dart';
+import 'features/home/logic/home_bindings.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -23,24 +25,28 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      initialRoute: Screens.settings,
+      initialRoute: Screens.start,
       getPages: [
         GetPage(
           name: Screens.start,
           page: () => StartScreen(),
-          binding: StartBindings(),
         ),
         GetPage(
           name: Screens.home,
           page: () => HomeScreen(),
+          binding: HomeBindings(),
         ),
         GetPage(
-          name: Screens.newEntry,
-          page: () => NewEntryScreen(),
+          name: Screens.grammar,
+          page: () => GrammarScreen(),
         ),
         GetPage(
-          name: Screens.entryDetail,
-          page: () => EntryDetailScreen(),
+          name: Screens.practiceDetail,
+          page: () => PracticeDetail(),
+        ),
+        GetPage(
+          name: Screens.vocabulary,
+          page: () => VocabularyScreen(),
         ),
         GetPage(
           name: Screens.settings,

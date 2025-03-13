@@ -9,9 +9,13 @@ class BasicButton extends StatelessWidget {
   final Function() onTap;
   final Widget child;
   final BorderRadius? borderRadius;
+  final Color? color;
+  final Border? border;
 
   const BasicButton(
       {super.key,
+      this.color,
+      this.border,
       required this.height,
       this.width = double.infinity,
       required this.onTap,
@@ -24,11 +28,13 @@ class BasicButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-            color: AppColors.third,
-            borderRadius: borderRadius ??
-                BorderRadius.circular(
-                  10,
-                )),
+          border: border,
+          color: color ?? AppColors.third,
+          borderRadius: borderRadius ??
+              BorderRadius.circular(
+                10,
+              ),
+        ),
         height: height,
         width: width,
         alignment: Alignment.center,

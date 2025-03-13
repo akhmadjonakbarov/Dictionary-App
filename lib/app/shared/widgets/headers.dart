@@ -1,5 +1,7 @@
+import 'package:dictionary_app/app/core/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../features/home/ui/widgets/circle_item_button.dart';
 import '../../ui/app_colors.dart';
@@ -48,21 +50,23 @@ class TopBar extends StatelessWidget {
   }
 }
 
-
 class Header extends StatelessWidget {
-  const Header(
-      {super.key,
-        required this.radius,
-        required this.firstText,
-        required this.secondText,
-        this.firstTextStyle,
-        this.secondTextStyle});
+  const Header({
+    super.key,
+    required this.radius,
+    required this.firstText,
+    this.secondText,
+    this.firstTextStyle,
+    this.secondTextStyle,
+    this.goToSetting,
+  });
 
   final Radius radius;
   final String firstText;
-  final String secondText;
+  final String? secondText;
   final TextStyle? firstTextStyle;
   final TextStyle? secondTextStyle;
+  final Function()? goToSetting;
 
   @override
   Widget build(BuildContext context) {
@@ -82,31 +86,37 @@ class Header extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            RichText(
-              text: TextSpan(
-                style: firstTextStyle ??
-                    GoogleFonts.quicksand(
-                      fontSize: height / 40,
-                      color: AppColors.grey,
+            if (secondText != null)
+              RichText(
+                text: TextSpan(
+                  style: firstTextStyle ??
+                      GoogleFonts.quicksand(
+                        fontSize: height / 40,
+                        color: AppColors.grey,
+                      ),
+                  children: [
+                    TextSpan(
+                      text: firstText,
                     ),
-                children: [
-                  TextSpan(
-                    text: firstText,
-                  ),
-                  TextSpan(
-                    text: "\n",
-                  ),
-                  TextSpan(
-                    text: secondText,
-                    style: secondTextStyle ??
-                        GoogleFonts.quicksand(
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.third,
-                            fontSize: height / 25),
-                  ),
-                ],
+                    TextSpan(
+                      text: "\n",
+                    ),
+                    TextSpan(
+                      text: secondText,
+                      style: secondTextStyle ??
+                          GoogleFonts.quicksand(
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.third,
+                              fontSize: height / 25),
+                    ),
+                  ],
+                ),
+              )
+            else
+              Text(
+                firstText,
+                style: firstTextStyle,
               ),
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -130,7 +140,13 @@ class Header extends StatelessWidget {
                 CircleItemButton(
                   width: width * 0.13,
                   height: width * 0.14,
-                  onTap: () {},
+                  onTap: () {
+                    if (goToSetting != null) {
+                      goToSetting!();
+                    } else {
+                      Get.toNamed(Screens.settings);
+                    }
+                  },
                   child: Padding(
                     padding: EdgeInsets.all(0),
                     child: SvgPicture.asset(

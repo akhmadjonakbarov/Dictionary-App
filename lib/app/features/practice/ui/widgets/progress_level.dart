@@ -4,14 +4,18 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../ui/app_colors.dart';
 import '../../../../ui/app_icons.dart';
-class ProgressLevel extends StatelessWidget {
-  const ProgressLevel({
-    super.key,
-    required this.width,
-    required this.height,
-    required this.level,
-  });
 
+class ProgressLevel extends StatelessWidget {
+  const ProgressLevel(
+      {super.key,
+      required this.width,
+      required this.height,
+      required this.level,
+      required this.lvl,
+      required this.index});
+
+  final int index;
+  final int lvl;
   final double width;
   final double height;
   final String level;
@@ -27,14 +31,20 @@ class ProgressLevel extends StatelessWidget {
           width: height / 20,
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: AppColors.whiteSmoke,
+            color: index + 1 <= lvl ? AppColors.third : AppColors.whiteSmoke,
             borderRadius: BorderRadius.circular(45),
           ),
-          child: SvgPicture.asset(
-            AppIcons.lock,
-            alignment: Alignment.center,
-            fit: BoxFit.contain, // or BoxFit.fill / BoxFit.scaleDown
-          ),
+          child: index + 1 <= lvl
+              ? Icon(
+                  Icons.done,
+                  size: height / 32,
+                  color: AppColors.white,
+                )
+              : SvgPicture.asset(
+                  AppIcons.lock,
+                  alignment: Alignment.center,
+                  fit: BoxFit.contain, // or BoxFit.fill / BoxFit.scaleDown
+                ),
         ),
         SizedBox(
           height: height * 0.1 / 15,

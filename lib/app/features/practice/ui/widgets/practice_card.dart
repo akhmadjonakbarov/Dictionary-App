@@ -57,9 +57,9 @@ class PracticeCard extends StatelessWidget {
               top: 0,
               child: IconButton(
                 onPressed: () {},
-                icon: Icon(
-                  Icons.play_arrow_outlined,
-                  size: height / 25,
+                icon: SvgPicture.asset(
+                  AppIcons.play,
+                  height: height / 45,
                 ),
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:dictionary_app/app/core/data/constants_data.dart';
+import 'package:dictionary_app/app/shared/logics/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +11,7 @@ import '../../../shared/widgets/custom_scaffold.dart';
 import '../../../shared/widgets/responsive_widget.dart';
 import '../../../ui/app_colors.dart';
 import 'widgets/greeting.dart';
+import 'widgets/level_item.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
@@ -24,17 +26,16 @@ class _StartScreenState extends State<StartScreen> {
     'intermediate',
     'advanced',
   ];
-  String? selectedValue;
-
-  var items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-  ];
-
+  String? selectedLanguage;
   String? selectedLevel;
+
+  final UserController userController = Get.find<UserController>();
+
+  @override
+  void initState() {
+    userController.auth();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -172,7 +173,8 @@ class _StartScreenState extends State<StartScreen> {
                                 fontSize: height / 50,
                                 fontWeight: FontWeight.w500,
                               ),
-                              value: selectedValue,
+                              underline: SizedBox(),
+                              value: selectedLanguage,
                               hint: Text("Languages"),
                               selectedItemBuilder: (BuildContext context) {
                                 return countryLanguageMap.entries.map(
@@ -193,10 +195,7 @@ class _StartScreenState extends State<StartScreen> {
                                   },
                                 ).toList();
                               },
-                              // Down Arrow Icon
                               icon: const Icon(Icons.keyboard_arrow_down),
-
-                              // Array list of items
                               items: countryLanguageMap.entries.map(
                                 (entry) {
                                   return DropdownMenuItem(
@@ -218,11 +217,9 @@ class _StartScreenState extends State<StartScreen> {
                                   );
                                 },
                               ).toList(),
-                              // After selecting the desired option,it will
-                              // change button value to selected value
                               onChanged: (newValue) {
                                 setState(() {
-                                  selectedValue = newValue;
+                                  selectedLanguage = newValue;
                                 });
                               },
                             ),
@@ -232,7 +229,12 @@ class _StartScreenState extends State<StartScreen> {
                       BasicButton(
                         height: height / 15,
                         borderRadius: BorderRadius.circular(height),
-                        onTap: () {},
+                        onTap: () {
+                          userController.login(
+                            selectedLanguage!,
+                            selectedLevel!,
+                          );
+                        },
                         child: Text(
                           "Start studying",
                           style: GoogleFonts.quicksand(
@@ -249,59 +251,6 @@ class _StartScreenState extends State<StartScreen> {
             ],
           );
         },
-      ),
-    );
-  }
-}
-
-class LevelItem extends StatelessWidget {
-  const LevelItem({
-    super.key,
-    required this.level,
-    required this.constraints,
-    required this.height,
-    required this.isSelected,
-    required this.onClick,
-  });
-
-  final String level;
-  final BoxConstraints constraints;
-  final double height;
-  final Function(String value) onClick;
-  final bool isSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: constraints.maxWidth * 0.3,
-      child: Material(
-        child: Ink(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              height,
-            ),
-            border: Border.all(
-              color: AppColors.borderColor,
-            ),
-
-          ),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(height),
-            onTap: () {
-              onClick(level);
-            },
-            child: Center(
-              child: Text(
-                level.capitalizeFirst!,
-                style: GoogleFonts.quicksand(
-                  color: isSelected ? AppColors.third : AppColors.grey,
-                  fontSize: height / 62,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }
