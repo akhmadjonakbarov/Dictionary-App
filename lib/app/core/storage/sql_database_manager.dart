@@ -57,7 +57,7 @@ class SQLDatabaseManager {
         await db.execute('''
         CREATE TABLE learnt_words (
               id INTEGER PRIMARY KEY AUTOINCREMENT,
-              wordId INTEGER
+              word TEXT
             )
         ''');
       },
@@ -69,17 +69,16 @@ class SQLDatabaseManager {
     return await db.insert(_tableName, word.toMap());
   }
 
-  Future<int> insertWordId(int id) async {
+  Future<int> insertLearntWord(String word) async {
     final db = await database;
-    return await db.insert('learnt_words', {'wordId': id});
+    return await db.insert('learnt_words', {'word': word});
   }
 
-  Future<List<int>> getLearnedWordIds() async {
+  Future<List<String>> getLearnedWordIds() async {
     final db = await database;
-    List<int> ids = [];
     return (await db.query('learnt_words'))
         .map(
-          (e) => int.parse(e['wordId'].toString()),
+          (e) => e['word'].toString(),
         )
         .toList();
   }

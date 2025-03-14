@@ -8,6 +8,7 @@ class Word {
   final String value;
   final String image;
   final int? level;
+
   Word({
     this.id,
     required this.category,
@@ -16,28 +17,6 @@ class Word {
     required this.image,
     this.level,
   });
-
-  // Map<String, dynamic> toMap() {
-  //   return {
-  //     'id': id,
-  //     'category': category,
-  //     'key': key,
-  //     'level': level,
-  //     'value': value,
-  //     'image': image,
-  //   };
-  // }
-
-  // factory Word.fromMap(Map<String, dynamic> map) {
-  //   return Word(
-  //     id: map['id'] as int?,
-  //     category: map['level'] as String,
-  //     key: map['key'] as String,
-  //     value: map['value'] as String,
-  //     image: map['image'] as String,
-  //     level: map['level'] as int,
-  //   );
-  // }
 
   Word copyWith({
     int? id,
@@ -84,30 +63,19 @@ class Word {
   factory Word.fromJson(String source) =>
       Word.fromMap(json.decode(source) as Map<String, dynamic>);
 
+  factory Word.empty() {
+    return Word(
+      id: null,
+      category: '',
+      key: '',
+      value: '',
+      image: '',
+      level: null,
+    );
+  }
+
   @override
   String toString() {
     return 'Word(id: $id, category: $category, key: $key, value: $value, image: $image, level: $level)';
-  }
-
-  @override
-  bool operator ==(covariant Word other) {
-    if (identical(this, other)) return true;
-
-    return other.id == id &&
-        other.category == category &&
-        other.key == key &&
-        other.value == value &&
-        other.image == image &&
-        other.level == level;
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^
-        category.hashCode ^
-        key.hashCode ^
-        value.hashCode ^
-        image.hashCode ^
-        level.hashCode;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:dictionary_app/app/core/screens.dart';
 import 'package:dictionary_app/app/features/practice/logic/practice_controller.dart';
 import 'package:dictionary_app/app/shared/logics/user_controller.dart';
 import 'package:dictionary_app/app/utils/radius_manager.dart';
@@ -16,7 +17,7 @@ import 'widgets/progress_level.dart';
 import 'widgets/progress_way.dart';
 
 class PracticeScreen extends StatefulWidget {
-  PracticeScreen({super.key});
+  const PracticeScreen({super.key});
 
   @override
   State<PracticeScreen> createState() => _PracticeScreenState();
@@ -149,7 +150,10 @@ class _PracticeScreenState extends State<PracticeScreen> {
                               height: height,
                               width: width,
                               constraints: constraints,
-                              onClick: () {},
+                              onClick: () {
+                                practiceController.selectLang('ru');
+                                Get.toNamed(Screens.practiceDetail);
+                              },
                               firstLang: PracticeLabelCard(
                                 lang: "Russian",
                               ),
@@ -162,7 +166,10 @@ class _PracticeScreenState extends State<PracticeScreen> {
                               height: height,
                               width: width,
                               constraints: constraints,
-                              onClick: () {},
+                              onClick: () {
+                                practiceController.selectLang('en');
+                                Get.toNamed(Screens.practiceDetail);
+                              },
                               firstLang: PracticeLabelCard(
                                 lang: "English",
                               ),
@@ -254,8 +261,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
                                       ),
                                     ),
                                     Container(
-                                      width: width *
-                                          practiceController.percent.value,
+                                      width: practiceController.percent.value,
                                       height: height * 0.1 / 5,
                                       decoration: BoxDecoration(
                                         borderRadius: RadiusManager.circular(
@@ -272,7 +278,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
                                 width: width * 0.1 / 3,
                               ),
                               Text(
-                                '${practiceController.percent.value}%',
+                                '${practiceController.percent.value.toStringAsFixed(2)}%',
                                 style: GoogleFonts.quicksand(
                                   fontWeight: FontWeight.w500,
                                   fontSize: height / 50,
