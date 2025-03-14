@@ -57,7 +57,7 @@ class SQLDatabaseManager {
         await db.execute('''
         CREATE TABLE learnt_words (
               id INTEGER PRIMARY KEY AUTOINCREMENT,
-              wordId INTEGER,
+              wordId INTEGER
             )
         ''');
       },

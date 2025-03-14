@@ -1,3 +1,4 @@
+import 'package:dictionary_app/app/features/practice/logic/practice_controller.dart';
 import 'package:dictionary_app/app/shared/logics/user_controller.dart';
 import 'package:dictionary_app/app/utils/radius_manager.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,16 @@ import 'widgets/practice_card.dart';
 import 'widgets/progress_level.dart';
 import 'widgets/progress_way.dart';
 
-class PracticeScreen extends StatelessWidget {
+class PracticeScreen extends StatefulWidget {
   PracticeScreen({super.key});
 
+  @override
+  State<PracticeScreen> createState() => _PracticeScreenState();
+}
+
+class _PracticeScreenState extends State<PracticeScreen> {
+  final UserController userController = Get.find<UserController>();
+  final PracticeController practiceController = Get.find<PracticeController>();
   final List<String> levels = [
     'Level 1',
     'Level 2',
@@ -24,7 +32,12 @@ class PracticeScreen extends StatelessWidget {
     'Level 4',
   ];
 
-  final UserController userController = Get.find<UserController>();
+  @override
+  void initState() {
+    userController.getUser();
+    practiceController.getWords();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -180,89 +193,99 @@ class PracticeScreen extends StatelessWidget {
                     color: AppColors.borderColor,
                   ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Latest result",
-                      style: GoogleFonts.quicksand(
-                        fontWeight: FontWeight.w500,
-                        fontSize: height / 50,
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                        vertical: height * 0.1 / 15,
-                      ),
-                      child: RichText(
-                        text: TextSpan(
-                          style: GoogleFonts.quicksand(
-                            color: AppColors.grey,
-                            fontSize: height / 35,
-                            fontWeight: FontWeight.w500,
+                child: Obx(
+                  () {
+                    if (practiceController.words.isNotEmpty) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Latest result",
+                            style: GoogleFonts.quicksand(
+                              fontWeight: FontWeight.w500,
+                              fontSize: height / 50,
+                            ),
                           ),
-                          children: [
-                            TextSpan(
-                              text: "25",
-                              style: GoogleFonts.quicksand(
-                                color: AppColors.black,
+                          Container(
+                            margin: EdgeInsets.symmetric(
+                              vertical: height * 0.1 / 15,
+                            ),
+                            child: RichText(
+                              text: TextSpan(
+                                style: GoogleFonts.quicksand(
+                                  color: AppColors.grey,
+                                  fontSize: height / 35,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: "${practiceController.words.length}",
+                                    style: GoogleFonts.quicksand(
+                                      color: AppColors.black,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: " to ",
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "${practiceController.totalWords} words",
+                                  )
+                                ],
                               ),
                             ),
-                            TextSpan(
-                              text: " to ",
-                            ),
-                            TextSpan(
-                              text: "40 words",
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Stack(
-                            alignment: Alignment.centerLeft,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                width: width,
-                                height: height * 0.1 / 5,
-                                decoration: BoxDecoration(
-                                  borderRadius: RadiusManager.circular(
-                                    context: context,
-                                    radius: 50,
-                                  ),
-                                  color: AppColors.whiteSmoke,
+                              Expanded(
+                                child: Stack(
+                                  alignment: Alignment.centerLeft,
+                                  children: [
+                                    Container(
+                                      width: width,
+                                      height: height * 0.1 / 5,
+                                      decoration: BoxDecoration(
+                                        borderRadius: RadiusManager.circular(
+                                          context: context,
+                                          radius: 50,
+                                        ),
+                                        color: AppColors.whiteSmoke,
+                                      ),
+                                    ),
+                                    Container(
+                                      width: width *
+                                          practiceController.percent.value,
+                                      height: height * 0.1 / 5,
+                                      decoration: BoxDecoration(
+                                        borderRadius: RadiusManager.circular(
+                                          context: context,
+                                          radius: 50,
+                                        ),
+                                        color: AppColors.third,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Container(
-                                width: width * 0.65,
-                                height: height * 0.1 / 5,
-                                decoration: BoxDecoration(
-                                  borderRadius: RadiusManager.circular(
-                                    context: context,
-                                    radius: 50,
-                                  ),
-                                  color: AppColors.third,
-                                ),
+                              SizedBox(
+                                width: width * 0.1 / 3,
                               ),
+                              Text(
+                                '${practiceController.percent.value}%',
+                                style: GoogleFonts.quicksand(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: height / 50,
+                                ),
+                              )
                             ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: width * 0.1 / 3,
-                        ),
-                        Text(
-                          '85%',
-                          style: GoogleFonts.quicksand(
-                            fontWeight: FontWeight.w500,
-                            fontSize: height / 50,
-                          ),
-                        )
-                      ],
-                    )
-                  ],
+                          )
+                        ],
+                      );
+                    } else {
+                      return SizedBox.shrink();
+                    }
+                  },
                 ),
               ),
             ],

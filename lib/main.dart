@@ -1,3 +1,4 @@
+import 'package:dictionary_app/app/core/storage/sql_database_manager.dart';
 import 'package:dictionary_app/app/shared/logics/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ void main() async {
   SharedPrefsHelper sharedPrefsHelper = SharedPrefsHelper();
   await sharedPrefsHelper.init();
   Get.put(sharedPrefsHelper);
+  Get.put(SQLDatabaseManager());
   Get.put(UserController());
   runApp(const MyApp());
 }
