@@ -47,11 +47,11 @@ class SQLDatabaseManager {
             CREATE TABLE $_tableName (
               id INTEGER PRIMARY KEY AUTOINCREMENT,
               category TEXT,
-              levelId INTEGER,
+              level INTEGER,
               key TEXT,
               value TEXT,
-              createdDate TEXT,
-             FOREIGN KEY (levelId) REFERENCES levels(id) ON DELETE CASCADE
+              image TEXT,
+             FOREIGN KEY (level) REFERENCES levels(id) ON DELETE CASCADE
             )
           ''');
         await db.execute('''

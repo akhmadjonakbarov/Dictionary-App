@@ -53,7 +53,7 @@ class Word {
       category: map['category'] as String,
       key: map['key'] as String,
       value: map['value'] as String,
-      image: map['image'] as String,
+      image: map['image'],
       level: map['level'] != null ? map['level'] as int : null,
     );
   }

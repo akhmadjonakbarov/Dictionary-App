@@ -51,7 +51,8 @@ class PracticeController extends GetxController {
     final currentWord = practiceWords[currentIndex.value];
 
     final values = allValues.take(4).toList();
-    values[Random().nextInt(3) + 0] = currentWord.value;
+    values[Random().nextInt(3)] =
+        selectedLang.value == 'ru' ? currentWord.value : currentWord.key;
     options.value = values;
   }
 
@@ -77,6 +78,9 @@ class PracticeController extends GetxController {
             lvlWords.remove(lvlWords[i]);
           }
         }
+      }
+      if (totalWords.value == lvlWords.length) {
+        userController.updateUserLevel();
       }
       words(lvlWords);
 

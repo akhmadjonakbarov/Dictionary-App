@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:dictionary_app/app/core/screens.dart';
 import 'package:dictionary_app/app/shared/logics/word_controller.dart';
+import 'package:dictionary_app/app/shared/widgets/WordImage.dart';
 import 'package:dictionary_app/app/ui/app_icons.dart';
 import 'package:dictionary_app/app/ui/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -163,7 +166,10 @@ class HomeScreen extends StatelessWidget {
                                   scrollDirection: Axis.horizontal,
                                   itemCount: 15,
                                   itemBuilder: (context, index) {
-                                    Word word = wordController.words[index];
+                                    Word word =
+                                        wordController.words[Random().nextInt(
+                                      wordController.words.length,
+                                    )];
                                     return WordCard(word: word);
                                   },
                                 )
@@ -199,7 +205,10 @@ class HomeScreen extends StatelessWidget {
                                   scrollDirection: Axis.horizontal,
                                   itemCount: 15,
                                   itemBuilder: (context, index) {
-                                    Word word = wordController.words[index];
+                                    Word word =
+                                        wordController.words[Random().nextInt(
+                                      wordController.words.length,
+                                    )];
                                     return WordCard(word: word);
                                   },
                                 )
@@ -245,15 +254,9 @@ class WordCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  height: height / 10,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                    image: NetworkImage(
-                      word.image,
-                    ),
-                    fit: BoxFit.cover,
-                  )),
+                WordImage(
+                  height: height,
+                  word: word,
                 )
               ],
             ),

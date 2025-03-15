@@ -1,11 +1,12 @@
 import 'package:dictionary_app/app/features/practice/logic/practice_controller.dart';
+import 'package:dictionary_app/app/shared/widgets/WordImage.dart';
 import 'package:dictionary_app/app/shared/widgets/buttons.dart';
 import 'package:dictionary_app/app/ui/app_icons.dart';
 import 'package:dictionary_app/app/utils/radius_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../shared/models/word.dart';
@@ -109,15 +110,10 @@ class _PracticeDetailState extends State<PracticeDetail> {
                                   // ),
                                 ],
                               ),
-                              Container(
+                              WordImage(
                                 height: height / 4.5,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(currentWord.image),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              )
+                                word: currentWord,
+                              ),
                             ],
                           ),
                         );

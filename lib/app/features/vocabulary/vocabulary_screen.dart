@@ -11,6 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../core/data/constants_data.dart';
 import '../../shared/models/word.dart';
+import '../../shared/widgets/WordImage.dart';
 import '../../ui/app_colors.dart';
 import '../start/ui/widgets/level_item.dart';
 
@@ -86,7 +87,7 @@ class _VocabularyScreenState extends State<VocabularyScreen> {
                                 constraints: constraints,
                                 isSelected: levels[index] == selectedLevel,
                                 onClick: (value) {
-                                  wordController.filterWord(selectedLevel!);
+                                  wordController.filterWord(value);
                                   setState(() {
                                     selectedLevel = value;
                                   });
@@ -133,7 +134,7 @@ class _VocabularyScreenState extends State<VocabularyScreen> {
                                 Text(
                                   word.value.capitalizeFirst!,
                                   style: QuickSandTextStyle.weightW600(
-                                      size: height / 52),
+                                      size: height / 55),
                                 ),
                                 PopupMenuButton<String>(
                                   padding: EdgeInsets.zero,
@@ -164,7 +165,7 @@ class _VocabularyScreenState extends State<VocabularyScreen> {
                                 Text(
                                   '(${word.key})',
                                   style: QuickSandTextStyle.weightW500(
-                                      color: AppColors.grey, size: height / 58),
+                                      color: AppColors.grey, size: height / 60),
                                 ),
                                 // Text(
                                 //   '(машина)',
@@ -177,16 +178,9 @@ class _VocabularyScreenState extends State<VocabularyScreen> {
                             ),
                           ],
                         ),
-                        Container(
-                          height: height / 10,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                word.image,
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                        WordImage(
+                          height: height,
+                          word: word,
                         )
                       ],
                     ),

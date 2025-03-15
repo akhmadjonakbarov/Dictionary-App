@@ -1,4 +1,5 @@
 import 'package:dictionary_app/app/core/screens.dart';
+import 'package:dictionary_app/app/shared/widgets/new_word.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -105,9 +106,10 @@ class Header extends StatelessWidget {
                       text: secondText,
                       style: secondTextStyle ??
                           GoogleFonts.quicksand(
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.third,
-                              fontSize: height / 25),
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.third,
+                            fontSize: height / 25,
+                          ),
                     ),
                   ],
                 ),
@@ -123,7 +125,13 @@ class Header extends StatelessWidget {
                 CircleItemButton(
                   width: width * 0.13,
                   height: width * 0.14,
-                  onTap: () {},
+                  onTap: () {
+                    Get.dialog(
+                      NewWordDialog(
+                        height: height,
+                      ),
+                    );
+                  },
                   child: Padding(
                     padding: EdgeInsets.all(0),
                     child: Icon(

@@ -88,6 +88,31 @@ class UserController extends GetxController {
     }
   }
 
+  void updateUserLevel() {
+    try {
+      getUser();
+      if (user.value.lvl == 4) {
+        Get.snackbar("Warning!", "You have reached the maximum level");
+        return;
+      }
+      final newUser = User(
+        name: user.value.name,
+        level: user.value.level,
+        lvl: user.value.lvl + 1,
+        learningLang: user.value.learningLang,
+      );
+      sharedPrefsHelper.setString('user', newUser.toJson());
+      Get.snackbar(
+        "Success",
+        "User's level was updated successfully",
+        backgroundColor: Colors.green,
+        colorText: AppColors.white,
+      );
+    } catch (e) {
+      handleError(e.toString());
+    }
+  }
+
   handleError(String e) {
     log("Error: $e");
     Get.snackbar(
