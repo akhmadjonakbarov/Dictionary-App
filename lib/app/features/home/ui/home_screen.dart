@@ -70,7 +70,9 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                   iconPath: AppIcons.zoom,
                                 ),
-                                SvgPicture.asset(AppIcons.blueBrain)
+                                SvgPicture.asset(AppIcons.blueBrain,
+                                height: height/10,
+                                )
                               ],
                             ),
                           ),
@@ -94,7 +96,9 @@ class HomeScreen extends StatelessWidget {
                                   second: "Rules",
                                   iconPath: AppIcons.zoom,
                                 ),
-                                SvgPicture.asset(AppIcons.book)
+                                SvgPicture.asset(AppIcons.book,
+                                height: height/10,
+                                )
                               ],
                             ),
                           ),
